@@ -22,8 +22,8 @@ public class Menu extends JPanel {
     public Menu(PuyoPuyo p) {
         super();
         frame = p;
-        selected = 1;
-        imgPath = "/puyopuyo/img/fullmenu1.png";
+        selected = 0;
+        imgPath = "/puyopuyo/img/menuMain0.png";
         keyPressed = false;
         initMenu();
     }
@@ -69,7 +69,7 @@ public class Menu extends JPanel {
         });
         */
         
-        SoundManager.playSong(0);
+        
     }
     
     /*
@@ -117,7 +117,7 @@ public class Menu extends JPanel {
             return scaledImg;
         }
         catch(IOException | IllegalArgumentException ex) {
-            System.err.println("Error: file not found /puyopuyo/img/fullmenu" + selected);
+            System.err.println("Error: file not found /puyopuyo/img/menu_" + selected);
         }
         return null;
     }

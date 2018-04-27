@@ -28,6 +28,7 @@ public class PuyoPuyo extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIcon();
         
+        SoundManager.playSong(0);
         menu = new Menu(this);
         add(menu);
         
