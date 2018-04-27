@@ -16,9 +16,7 @@ public final class SoundManager {
     private static Clip song = null;
     private static boolean playing;
     
-    static {
-        System.out.println("Initializing SoundManager...");
-        // TODO: make error message
+    static {    // TODO: make error message
         songList[0] = SoundManager.class.getResource("/puyopuyo/sound/BGM_Menu.wav");
         songList[1] = SoundManager.class.getResource("/puyopuyo/sound/BGM_Pinch.wav");
 

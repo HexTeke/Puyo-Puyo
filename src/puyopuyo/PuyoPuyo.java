@@ -8,38 +8,33 @@ import javax.swing.JFrame;
 
 public class PuyoPuyo extends JFrame {
     
-    public static Process proc;
-    
     public static void main(String[] args) {
-        PuyoPuyo game = new PuyoPuyo();
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            PuyoPuyo game = new PuyoPuyo();
+        });
     }
     
-    protected KeyBinding keyBinds;
-    protected Menu menu = null;
+    protected Menu menu;
+    private int width, height;
     
     public PuyoPuyo() {
         super("Puyo Puyo!");
-        System.out.println("Initializing Puyo Puyo...");
+        width = 320 * 2;
+        height = 224 * 2;
         initFrame();
-        
-        keyBinds = new KeyBinding();
     }
     
     private void initFrame() {
-        setIcon();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIcon();
         
-        addComponents();
-        pack();
+        menu = new Menu(this);
+        add(menu);
         
         setResizable(false);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-    
-    private void addComponents() {
-        menu = new Menu(this, keyBinds);
-        add(menu);
     }
     
     private void setIcon() {
@@ -53,12 +48,19 @@ public class PuyoPuyo extends JFrame {
         }
     }
     
-    public int getFrameWidth() {
-        return getContentPane().getWidth();
+    public void setDefinedWidth(int val) {
+        width = val;
     }
     
-    public int getFrameHeight() {
-        return getContentPane().getHeight();
+    public void setDefinedHeight(int val) {
+        height = val;
     }
     
+    public int getDefinedWidth() {
+        return width;
+    }
+
+    public int getDefinedHeight() {
+        return height;
+    }
 }
