@@ -14,7 +14,7 @@ public class PuyoPuyo extends JFrame {
         });
     }
     
-    private Menu menu;
+    private PanelContainer menu;
     private int width, height;
     
     public PuyoPuyo() {
@@ -29,7 +29,7 @@ public class PuyoPuyo extends JFrame {
         setIcon();
         
         SoundManager.playSong(0);
-        menu = new Menu(this);
+        menu = new PanelContainer(this);
         
         setResizable(false);
         pack();
