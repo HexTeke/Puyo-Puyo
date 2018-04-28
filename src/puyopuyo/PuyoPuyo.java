@@ -14,7 +14,7 @@ public class PuyoPuyo extends JFrame {
         });
     }
     
-    protected Menu menu;
+    private Menu menu;
     private int width, height;
     
     public PuyoPuyo() {
@@ -30,7 +30,6 @@ public class PuyoPuyo extends JFrame {
         
         SoundManager.playSong(0);
         menu = new Menu(this);
-        add(menu);
         
         setResizable(false);
         pack();
