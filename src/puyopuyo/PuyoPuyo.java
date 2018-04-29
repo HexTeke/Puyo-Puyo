@@ -1,5 +1,6 @@
 package puyopuyo;
 
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -22,7 +23,7 @@ public class PuyoPuyo extends JFrame {
     
     public PuyoPuyo() {
         super("Puyo Puyo!");
-        scale = 2;
+        scale = 3;
         width = 320 * scale;
         height = 224 * scale;
         
@@ -32,6 +33,7 @@ public class PuyoPuyo extends JFrame {
     }
     
     private void initFrame() {
+        //setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         pack();
@@ -58,5 +60,9 @@ public class PuyoPuyo extends JFrame {
     
     public void playSong(int o) {
         soundManager.playSong(o);
+    }
+    
+    public void quit() {
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 }
