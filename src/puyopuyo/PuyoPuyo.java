@@ -14,40 +14,41 @@ public class PuyoPuyo extends JFrame {
         });
     }
     
-    private SoundManager soundManager;
-    private PanelContainer menu;
+    private final String iconPath = "/puyopuyo/img/icon.png";
+    
+    private final SoundManager soundManager;
+    private final PanelContainer menu;
     public int width, height, scale;
     
     public PuyoPuyo() {
         super("Puyo Puyo!");
-        scale = 1;
+        scale = 2;
         width = 320 * scale;
         height = 224 * scale;
+        
         soundManager = new SoundManager();
+        menu = new PanelContainer(this);
         initFrame();
     }
     
     private void initFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIcon();
-        
-        playSong(0);
-        menu = new PanelContainer(this);
-        
         setResizable(false);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        setIcon();
+        
+        playSong(0);
     }
     
     private void setIcon() {
         try {
-            BufferedImage buff = ImageIO.read(
-                    this.getClass().getResource("/puyopuyo/img/icon.png"));
-            setIconImage(new ImageIcon(buff).getImage());
+            BufferedImage buf = ImageIO.read(this.getClass().getResource(iconPath));
+            setIconImage(new ImageIcon(buf).getImage());
         }
         catch(IOException| IllegalArgumentException ex) {
-            System.err.println("Error: File not found /puyopuyo/img/icon.png");
+            System.err.println("Error: File not found " + iconPath);
         }
     }
     

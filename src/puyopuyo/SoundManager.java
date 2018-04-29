@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -74,17 +75,6 @@ public class SoundManager {
         }
         catch(IOException | LineUnavailableException | UnsupportedAudioFileException | NullPointerException ex) {
             System.err.println("Error: Missing or invalid SONG file " + o);
-        }
-    }
-    
-    public void pause() {
-        if(playing) {
-            song.stop();
-            playing = false;
-        }
-        else {
-            song.start();
-            playing = true;
         }
     }
 }
