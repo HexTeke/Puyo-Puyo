@@ -14,6 +14,9 @@ public class PanelContainer {
     
     private final Menu main;
     private final Menu options;
+    private final Menu pause;
+    
+    private final Game game;
     
     public PanelContainer(PuyoPuyo p) {
         super();
@@ -24,13 +27,16 @@ public class PanelContainer {
         
         main = new MainMenu(frame, this);
         options = new OptionsMenu(frame, this);
-        
+        pause = new PauseMenu(frame, this);
         c.add(main, "main");
         c.add(options, "options");
+        c.add(pause, "pause");
+        
+        game = new Game(frame, this);
+        c.add(game, "game");
     }
 
     public void swapCard(String name) {
         card.show(c, name);
     }
 }
-
