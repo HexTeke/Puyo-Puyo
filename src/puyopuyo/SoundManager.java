@@ -8,17 +8,21 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public final class SoundManager {
+public class SoundManager {
     
-    private static final URL[] songList = new URL[20];
-    private static final URL[] sfxList = new URL[22];
+    private final URL[] songList;
+    private final URL[] sfxList;
     
-    private static Clip song = null;
-    private static boolean playing;
+    private Clip song = null;
+    private boolean playing;
     
-    static {    // TODO: make error message
+    public SoundManager() { // TODO: make error message
+        this.songList = new URL[20];
+        this.sfxList = new URL[22];
+        
         songList[0] = SoundManager.class.getResource("/puyopuyo/sound/BGM_Menu.wav");
         songList[1] = SoundManager.class.getResource("/puyopuyo/sound/BGM_Pinch.wav");
+        songList[2] = SoundManager.class.getResource("/puyopuyo/sound/BGM_Exercise.wav");
 
         sfxList[0] = SoundManager.class.getResource("/puyopuyo/sound/Chain0.wav");
         sfxList[1] = SoundManager.class.getResource("/puyopuyo/sound/Chain1.wav");
@@ -44,7 +48,7 @@ public final class SoundManager {
         sfxList[21] = SoundManager.class.getResource("/puyopuyo/sound/Win3.wav");
     }
     
-    public static void playSFX(int o) {
+    public void playSFX(int o) {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(sfxList[o]);
             Clip clip = AudioSystem.getClip();
@@ -56,9 +60,11 @@ public final class SoundManager {
         }
     }
     
-    public static void playSong(int o) {
-        if(song != null)
+    public void playSong(int o) {
+        if(song != null) {
             song.stop();
+            song.close();
+        }
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(songList[o]);
             song = AudioSystem.getClip();
@@ -71,7 +77,7 @@ public final class SoundManager {
         }
     }
     
-    public static void pause() {
+    public void pause() {
         if(playing) {
             song.stop();
             playing = false;

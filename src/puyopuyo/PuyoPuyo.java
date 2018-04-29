@@ -14,13 +14,16 @@ public class PuyoPuyo extends JFrame {
         });
     }
     
-    private Menu menu;
-    private int width, height;
+    private SoundManager soundManager;
+    private PanelContainer menu;
+    public int width, height, scale;
     
     public PuyoPuyo() {
         super("Puyo Puyo!");
-        width = 320 * 2;
-        height = 224 * 2;
+        scale = 1;
+        width = 320 * scale;
+        height = 224 * scale;
+        soundManager = new SoundManager();
         initFrame();
     }
     
@@ -28,8 +31,8 @@ public class PuyoPuyo extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIcon();
         
-        SoundManager.playSong(0);
-        menu = new Menu(this);
+        playSong(0);
+        menu = new PanelContainer(this);
         
         setResizable(false);
         pack();
@@ -48,19 +51,11 @@ public class PuyoPuyo extends JFrame {
         }
     }
     
-    public void setDefinedWidth(int val) {
-        width = val;
+    public void playSFX(int o) {
+        soundManager.playSFX(o);
     }
     
-    public void setDefinedHeight(int val) {
-        height = val;
-    }
-    
-    public int getDefinedWidth() {
-        return width;
-    }
-
-    public int getDefinedHeight() {
-        return height;
+    public void playSong(int o) {
+        soundManager.playSong(o);
     }
 }
