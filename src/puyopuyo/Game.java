@@ -11,10 +11,11 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+// see Menu class for comments, follows the same format
 public class Game extends JPanel {
     protected PuyoPuyo frame;
     protected PanelContainer pc;
-    protected String imgPath;
+    protected final String imgPath = "/puyopuyo/img/board";
     
     protected static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
     protected static final String PAUSE = "pause";
@@ -24,15 +25,9 @@ public class Game extends JPanel {
     public Game(PuyoPuyo frame, PanelContainer pc) {
         this.frame = frame;
         this.pc = pc;
-        imgPath = "/puyopuyo/img/board";
 
         getInputMap(IFW).put(KeyStroke.getKeyStroke("ESCAPE"), PAUSE);
         getActionMap().put(PAUSE, new Action(this, 0));
-    }
-    
-    public void pause() {
-        pause = true;
-        pc.swapCard("pause");
     }
     
     private class Action extends AbstractAction {
@@ -46,8 +41,11 @@ public class Game extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            frame.playSFX(17);
-            game.pause();
+            if(action == 0) {
+                game.pause = true;
+                frame.playSFX(17);
+                pc.swapCard("pause");
+            }
         }
     }
     
