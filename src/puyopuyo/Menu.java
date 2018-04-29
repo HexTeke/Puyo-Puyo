@@ -64,9 +64,11 @@ class MainMenu extends Menu {
         getInputMap(IFW).put(KeyStroke.getKeyStroke("UP"), MOVE_UP);      // adds the inputs to the
         getInputMap(IFW).put(KeyStroke.getKeyStroke("DOWN"), MOVE_DOWN);  // component. 
         getInputMap(IFW).put(KeyStroke.getKeyStroke("ENTER"), SELECT);
+        getInputMap(IFW).put(KeyStroke.getKeyStroke("ESCAPE"), BACK);
         getActionMap().put(MOVE_UP, new Action(this, 0));       // calls the child class Action
         getActionMap().put(MOVE_DOWN, new Action(this, 1));     // to respond whenever an input
         getActionMap().put(SELECT, new Action(this, 2));        // has been recieved.
+        getActionMap().put(BACK, new Action(this, 3));
     }
     
     @Override
@@ -99,6 +101,9 @@ class MainMenu extends Menu {
                     frame.playSFX(17);
                     pc.swapCard("options");
                 }   break;
+            case 3:
+                frame.quit();
+                break;
         }
     }
     
