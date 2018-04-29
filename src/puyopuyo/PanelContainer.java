@@ -17,7 +17,7 @@ public class PanelContainer {
     private final Menu options;
     private final Menu pause;
     
-    private final Game game;
+    private final BoardContainer board;
     
     public PanelContainer(PuyoPuyo p) {
         super();
@@ -34,8 +34,8 @@ public class PanelContainer {
         c.add(options, "options");
         c.add(pause, "pause");
         
-        game = new Game(frame, this);
-        c.add(game, "game");
+        board = new BoardContainer(frame, this);
+        c.add(board, "game");
     }
 
     public void swapCard(String name) {
