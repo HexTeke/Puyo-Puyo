@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package puyopuyo;
 
 import java.awt.Dimension;
@@ -19,7 +14,7 @@ import javax.swing.KeyStroke;
 
 public class Menu extends JPanel {
     protected PuyoPuyo frame;
-    protected PanelContainer menu;
+    protected PanelContainer pc;
     protected String imgPath;
     protected int selected;
     protected boolean keyPressed;
@@ -32,31 +27,24 @@ public class Menu extends JPanel {
     protected static final String PRESSEDSELECT = "pressed select";
     protected static final String RELEASEDSELECT = "released select";
     protected static final String BACK = "back";
+    protected static final String PAUSE = "pause";
     
-    public Menu(PuyoPuyo p, PanelContainer m) {
-        frame = p;
-        menu = m;
+    public Menu(PuyoPuyo frame, PanelContainer pc) {
+        this.frame = frame;
+        this.pc = pc;
         imgPath = "/puyopuyo/img/menu";
         keyPressed = false;
         initialize();
     }
     
     private void initialize() {
-        setPreferredSize(new Dimension(
-                frame.getDefinedWidth(),
-                frame.getDefinedHeight()
-        ));
+        setPreferredSize(new Dimension(frame.width, frame.height));
     }
     
     private Image getImage() {
         try {
-            BufferedImage img = ImageIO.read(
-                    this.getClass().getResource(imgPath + selected + ".png"));
-            Image scaledImg = img.getScaledInstance(
-                    frame.getContentPane().getWidth(),
-                    frame.getContentPane().getHeight(),
-                    Image.SCALE_FAST
-            );
+            BufferedImage img = ImageIO.read(this.getClass().getResource(imgPath + selected + ".png"));
+            Image scaledImg = img.getScaledInstance(frame.width, frame.height, Image.SCALE_FAST);
             return scaledImg;
         }
         catch(IOException | IllegalArgumentException ex) {
@@ -74,8 +62,8 @@ public class Menu extends JPanel {
 
 class MainMenu extends Menu {
     
-    public MainMenu(PuyoPuyo p, PanelContainer m) {
-        super(p, m);
+    public MainMenu(PuyoPuyo frame, PanelContainer pc) {
+        super(frame, pc);
         selected = 0;
 
         getInputMap(IFW).put(KeyStroke.getKeyStroke("UP"), MOVE_UP);
@@ -92,28 +80,31 @@ class MainMenu extends Menu {
     public void navigate(int action) {
         switch(action) {
             case 0:
-                if(selected != 0) {
+                if(selected > 0) {
+                    frame.playSFX(10);
                     selected--;
-                    SoundManager.playSFX(10);
                 }   break;
             case 1:
-                if(selected != 3) {
+                if(selected < 3) {
+                    frame.playSFX(10);
                     selected++;
-                    SoundManager.playSFX(10);
                 }   break;
             case 2:
                 if(selected == 0) {
-                    SoundManager.playSFX(11);
+                    frame.playSFX(11);
                 }
                 if(selected == 1) {
-                    SoundManager.playSFX(11);
+                    frame.playSFX(11);
                 }
                 if(selected == 2) {
-                    SoundManager.playSFX(11);
+                    selected = 0;
+                    frame.playSFX(17);
+                    pc.swapCard("game");
+                    frame.playSong(2);
                 }
                 if(selected == 3) {
-                    SoundManager.playSFX(17);
-                    menu.swapCard("options");
+                    frame.playSFX(17);
+                    pc.swapCard("options");
                 }   break;
             case 3:
                 keyPressed = false;
@@ -141,15 +132,15 @@ class MainMenu extends Menu {
 
 class OptionsMenu extends Menu {
     
-    public OptionsMenu(PuyoPuyo p, PanelContainer m) {
-        super(p, m);
+    public OptionsMenu(PuyoPuyo frame, PanelContainer pc) {
+        super(frame, pc);
         selected = 4;
         
         getInputMap(IFW).put(KeyStroke.getKeyStroke("LEFT"), MOVE_LEFT);
         getInputMap(IFW).put(KeyStroke.getKeyStroke("RIGHT"), MOVE_RIGHT);
         getInputMap(IFW).put(KeyStroke.getKeyStroke("pressed ENTER"), PRESSEDSELECT);
         getInputMap(IFW).put(KeyStroke.getKeyStroke("released ENTER"), RELEASEDSELECT);
-        getInputMap(IFW).put(KeyStroke.getKeyStroke("BACK_SPACE"), BACK);
+        getInputMap(IFW).put(KeyStroke.getKeyStroke("ESCAPE"), BACK);
         
         getActionMap().put(MOVE_LEFT, new Action(this, 0));
         getActionMap().put(MOVE_RIGHT, new Action(this, 1));
@@ -169,8 +160,8 @@ class OptionsMenu extends Menu {
             case 3:
                 break;
             case 4:
-                SoundManager.playSFX(15);
-                menu.swapCard("main");
+                pc.swapCard("main");
+                frame.playSFX(15);
                 break;
             default:
                 break;
@@ -189,6 +180,66 @@ class OptionsMenu extends Menu {
         @Override
         public void actionPerformed(ActionEvent e) {
             options.navigate(action);
+        }
+    }
+}
+
+class PauseMenu extends Menu {
+    
+    public PauseMenu(PuyoPuyo frame, PanelContainer pc) {
+        super(frame, pc);
+        selected = 5;
+        
+        getInputMap(IFW).put(KeyStroke.getKeyStroke("UP"), MOVE_UP);
+        getInputMap(IFW).put(KeyStroke.getKeyStroke("DOWN"), MOVE_DOWN);
+        getInputMap(IFW).put(KeyStroke.getKeyStroke("pressed ENTER"), PRESSEDSELECT);
+        
+        getActionMap().put(MOVE_UP, new Action(this, 0));
+        getActionMap().put(MOVE_DOWN, new Action(this, 1));
+        getActionMap().put(PRESSEDSELECT, new Action(this, 2));
+    }
+    
+    public void navigate(int action) {
+        switch(action) {
+            case 0:
+                if(selected > 5) {
+                    selected--;
+                    frame.playSFX(10);
+                }   break;
+            case 1:
+                if(selected < 6) {
+                    selected++;
+                    frame.playSFX(10);
+                }   break;
+            case 2:
+                if(selected == 5) {
+                    selected = 5;
+                    pc.swapCard("game");
+                    frame.playSFX(17);
+                }
+                if(selected == 6) {
+                    selected = 5;
+                    pc.swapCard("main");
+                    frame.playSFX(11);
+                    frame.playSong(0);
+                }   break;
+            default:
+                break;
+        }
+    }
+    
+    private class Action extends AbstractAction {
+        private final PauseMenu pause;
+        private final int action;
+        
+        Action(PauseMenu pause, int action) {
+            this.pause = pause;
+            this.action = action;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            pause.navigate(action);
         }
     }
 }
