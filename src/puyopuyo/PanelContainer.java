@@ -2,12 +2,13 @@ package puyopuyo;
 
 import java.awt.CardLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 
-/*  Key Mappings:
- *  https://docs.oracle.com/javase/8/docs/api/java/awt/event/KeyEvent.html
+/** 
+ * Contains all of the menus and game JPanels
+ * Key Mappings:
+ * https://docs.oracle.com/javase/8/docs/api/java/awt/event/KeyEvent.html
+ * @author HexTeke
  */
-
 public class PanelContainer {
     private final PuyoPuyo frame;
     private final CardLayout card;
@@ -25,7 +26,6 @@ public class PanelContainer {
         card = new CardLayout();
         c = frame.getContentPane();
         c.setLayout(card);
-        c.setPreferredSize(new Dimension(frame.width, frame.height));
         
         main = new MainMenu(frame, this);
         options = new OptionsMenu(frame, this);

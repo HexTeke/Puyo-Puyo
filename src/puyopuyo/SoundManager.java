@@ -6,6 +6,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -53,6 +55,14 @@ public class SoundManager {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(sfxList[o]);
             Clip clip = AudioSystem.getClip();
+            
+            // waits until the clip is finished to close it
+            clip.addLineListener((LineEvent e) -> {
+                if (e.getType()==LineEvent.Type.STOP){
+                    clip.close();
+                }
+            });
+            
             clip.open(audioIn);
             clip.start();
         }
