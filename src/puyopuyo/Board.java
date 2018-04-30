@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
-import javax.swing.GroupLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
@@ -108,12 +107,31 @@ class BoardContainer extends JPanel {
 
 class BoardLeft extends Board {
     
+    private BoardManager boardManager;
+    
     public BoardLeft(PuyoPuyo frame, PanelContainer pc) {
         super(frame, pc);
         imgPath = "/puyopuyo/img/board1";
         imgWidth = 112 * frame.scale;
+        
+        boardManager = new BoardManager(frame, this, "left");
     }
     
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        for(int i = 0; i < 12; i++) {
+            for(int j = 0; j < 6; j++) {
+                if(boardManager.getVisibility(i, j))
+                    g.drawImage(
+                        boardManager.getImage(i, j),
+                        boardManager.getX(i, j),
+                        boardManager.getY(i, j),
+                        this
+                    );
+            }
+        }
+    }
 }
 
 class BoardMiddle extends Board {
