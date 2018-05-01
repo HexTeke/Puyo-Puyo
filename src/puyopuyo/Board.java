@@ -19,6 +19,7 @@ public class Board extends JPanel {
     protected PanelContainer pc;
     protected String imgPath;
     protected int imgWidth, imgHeight;
+    protected Image image;
     
     public Board(PuyoPuyo frame, PanelContainer pc) {
         this.frame = frame;
@@ -27,24 +28,23 @@ public class Board extends JPanel {
         imgHeight = 224 * frame.scale;
     }
     
-    private Image getImage() {
+    final protected void createImage() {
         try {
             BufferedImage img = ImageIO.read(this.getClass().getResource(imgPath + ".png"));
-            Image scaledImg = img.getScaledInstance(imgWidth, imgHeight, Image.SCALE_FAST);
-            return scaledImg;
+            image = img.getScaledInstance(imgWidth, imgHeight, Image.SCALE_FAST);
         }
         catch(IOException | IllegalArgumentException ex) {
             System.err.println("Error: file not found " + imgPath + ".png");
         }
-        return null;
     }
     
+    /*
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(getImage(), 0, 0, this);
     }
-    
+    */
 }
 
 // a JPanel that contains all of the Board Panels
@@ -107,7 +107,7 @@ class BoardContainer extends JPanel {
 
 class BoardLeft extends Board {
     
-    private BoardManager boardManager;
+    private final BoardManager boardManager;
     
     public BoardLeft(PuyoPuyo frame, PanelContainer pc) {
         super(frame, pc);
@@ -115,20 +115,23 @@ class BoardLeft extends Board {
         imgWidth = 112 * frame.scale;
         
         boardManager = new BoardManager(frame, this, "left");
+        createImage();
     }
     
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
         for(int i = 0; i < 12; i++) {
             for(int j = 0; j < 6; j++) {
-                if(boardManager.getVisibility(i, j))
+                if(boardManager.getVisibility(i, j)) {
                     g.drawImage(
                         boardManager.getImage(i, j),
                         boardManager.getX(i, j),
                         boardManager.getY(i, j),
                         this
                     );
+                }
             }
         }
     }
@@ -140,6 +143,14 @@ class BoardMiddle extends Board {
         super(frame, pc);
         imgPath = "/puyopuyo/img/board2";
         imgWidth = 96 * frame.scale;
+        
+        createImage();
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
     }
     
 }
@@ -150,6 +161,14 @@ class BoardRight extends Board {
         super(frame, pc);
         imgPath = "/puyopuyo/img/board3";
         imgWidth = 112 * frame.scale;
+        
+        createImage();
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
     }
     
 }
