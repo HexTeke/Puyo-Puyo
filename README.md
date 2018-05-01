@@ -10,4 +10,6 @@ Java remake of Puyo Puyo / Dr. Robotnik's Mean Bean Machine for the Sega Genesis
 - Options
 
 # Screenshots
- [menu](/master/Puyo-Puyo/screenshots/Screenshot_2.png?raw=true)
+![](https://github.com/HexTeke/Puyo-Puyo/blob/master/screenshots/Screenshot_2.png?raw=true)
+
+![](https://github.com/HexTeke/Puyo-Puyo/blob/master/screenshots/Screenshot_3.png?raw=true)
