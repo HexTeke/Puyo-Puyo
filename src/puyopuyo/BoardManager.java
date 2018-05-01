@@ -1,6 +1,7 @@
 package puyopuyo;
 
 import java.awt.Image;
+import java.util.Random;
 
 /**
  *
@@ -23,11 +24,30 @@ public class BoardManager {
         puyoGrid = new Puyo[12][6];
         for(int i = 0; i < 12; i++) {
             for(int j = 0; j < 6; j++) {
+                String col = new String();
+                int rand = new Random().nextInt(5);
+                switch(rand) {
+                    case 0:
+                        col = "red";
+                        break;
+                    case 1:
+                        col = "green";
+                        break;
+                    case 2:
+                        col = "yellow";
+                        break;
+                    case 3:
+                        col = "violet";
+                        break;
+                    case 4:
+                        col = "blue";
+                        break;
+                }
                 puyoGrid[i][j] = new Puyo(
                     frame,
                     (16 * frame.scale) + (j * 16 * frame.scale),
                     (16 * frame.scale) + (i * 16 * frame.scale),
-                    "red",
+                    col,
                     true
                 );
             }
@@ -44,25 +64,25 @@ public class BoardManager {
                 if(puyoGrid[i][j].isVisible()) {
                     color = puyoGrid[i][j].getColor();
                     if(j > 0) { // LEFT
-                        if(puyoGrid[i][j - 1].isVisible() && color.equals(puyoGrid[i][j].getColor()))
+                        if(puyoGrid[i][j - 1].isVisible() && color.equals(puyoGrid[i][j - 1].getColor()))
                             puyoGrid[i][j].update(4, true);
                         else
                             puyoGrid[i][j].update(4, false);
                     }
                     if(j < 5) { // RIGHT
-                        if(puyoGrid[i][j + 1].isVisible() && color.equals(puyoGrid[i][j].getColor()))
+                        if(puyoGrid[i][j + 1].isVisible() && color.equals(puyoGrid[i][j + 1].getColor()))
                             puyoGrid[i][j].update(3, true);
                         else
                             puyoGrid[i][j].update(3, false);
                     }
                     if(i > 0) { // UP
-                        if(puyoGrid[i - 1][j].isVisible() && color.equals(puyoGrid[i][j].getColor()))
+                        if(puyoGrid[i - 1][j].isVisible() && color.equals(puyoGrid[i - 1][j].getColor()))
                             puyoGrid[i][j].update(1, true);
                         else
                             puyoGrid[i][j].update(1, false);
                     }
                     if(i < 11) { // DOWN
-                        if(puyoGrid[i + 1][j].isVisible() && color.equals(puyoGrid[i][j].getColor()))
+                        if(puyoGrid[i + 1][j].isVisible() && color.equals(puyoGrid[i + 1][j].getColor()))
                             puyoGrid[i][j].update(2, true);
                         else
                             puyoGrid[i][j].update(2, false);
