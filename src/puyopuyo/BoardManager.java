@@ -20,7 +20,11 @@ public class BoardManager {
         this.board = board;
         this.side = side;
         
-        // create and populate puyoGrid
+        populateGrid();
+        getConnections();
+    }
+    
+    private void populateGrid() {
         puyoGrid = new Puyo[12][6];
         for(int i = 0; i < 12; i++) {
             for(int j = 0; j < 6; j++) {
@@ -52,7 +56,6 @@ public class BoardManager {
                 );
             }
         }
-        getConnections();
     }
     
     // logic for connecting puyos

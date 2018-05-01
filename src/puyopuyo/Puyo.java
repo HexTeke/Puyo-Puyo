@@ -144,7 +144,7 @@ public class Puyo {
         createImage();
     }
     
-    final private void createImage() {
+    private void createImage() {
         try {
             BufferedImage img = ImageIO.read(this.getClass().getResource(imgPath + current + ".png"));
             image = img.getScaledInstance(16 * frame.scale, 16 * frame.scale, Image.SCALE_FAST);
