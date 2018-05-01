@@ -29,15 +29,16 @@ import javax.imageio.ImageIO;
 
 public class Puyo {
     
-    private PuyoPuyo frame;
+    private final PuyoPuyo frame;
     
-    private String imgPath;
+    private final String imgPath;
+    private Image image;
     
     private int xPos;
     private int yPos;
     private String color; // GREY, RED, BLUE, GREEN, YELLOW, VIOLET
     
-    private boolean visible;
+    private final boolean visible;
     private int current;
     private boolean[] connections;
     
@@ -47,10 +48,11 @@ public class Puyo {
         yPos = y;
         color = c;
         visible = vis;
-        current = 01;
+        current = 60;
         connections = new boolean[5];
         
         imgPath = "/puyopuyo/img/" + color + "/";
+        createImage();
     }
     
     /* Movement */
@@ -138,18 +140,22 @@ public class Puyo {
         // NO CONNECTIONS
         else
             current = 60;
+        
+        createImage();
     }
     
-    public Image getImage() {
+    final private void createImage() {
         try {
             BufferedImage img = ImageIO.read(this.getClass().getResource(imgPath + current + ".png"));
-            Image scaledImg = img.getScaledInstance(16 * frame.scale, 16 * frame.scale, Image.SCALE_FAST);
-            return scaledImg;
+            image = img.getScaledInstance(16 * frame.scale, 16 * frame.scale, Image.SCALE_FAST);
         }
         catch(IOException | IllegalArgumentException ex) {
             System.err.println("Error: file not found " + imgPath + current + ".png");
         }
-        return null;
+    }
+    
+    public Image getImage() {
+        return image;
     }
     
 }
