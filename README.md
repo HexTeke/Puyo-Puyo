@@ -4,3 +4,6 @@ Java remake of Puyo Puyo / Dr. Robotnik's Mean Bean Machine for the Sega Genesis
 - Arrow keys to navigate
 - `Escape` - Back/Pause
 - `A/S` - Rotate
+
+# ToDo
+- finish ToDo
