@@ -23,7 +23,7 @@ public class PuyoPuyo extends JFrame {
     
     public PuyoPuyo() {
         super("Puyo Puyo!");
-        scale = 3;
+        scale = 2;
         width = 320 * scale;
         height = 224 * scale;
         

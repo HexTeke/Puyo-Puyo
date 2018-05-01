@@ -47,10 +47,10 @@ public class Puyo {
         yPos = y;
         color = c;
         visible = vis;
-        current = 60;
+        current = 01;
         connections = new boolean[5];
         
-        imgPath = "/puyopuyo/img/puyo/" + color + "/";
+        imgPath = "/puyopuyo/img/" + color + "/";
     }
     
     /* Movement */
@@ -112,20 +112,28 @@ public class Puyo {
             current = 43;
         
         // 2-WAY
-        else if(connections[2] && connections[4])
-            current = 33;
-        else if(connections[1] && connections[4])
-            current = 32;
-        else if(connections[2] && connections[3])
-            current = 31;
         else if(connections[1] && connections[3])
             current = 30;
-        
-        // 1-WAY
+        else if(connections[2] && connections[3])
+            current = 31;
+        else if(connections[1] && connections[4])
+            current = 32;
+        else if(connections[2] && connections[4])
+            current = 33;
         else if(connections[3] && connections[4])
             current = 20;
         else if(connections[1] && connections[2])
             current = 21;
+        
+        // 1-WAY
+        else if(connections[1])
+            current = 10;
+        else if(connections[2])
+            current = 11;
+        else if(connections[3])
+            current = 12;
+        else if(connections[4])
+            current = 13;
         
         // NO CONNECTIONS
         else
