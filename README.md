@@ -1,7 +1,6 @@
 Java remake of Puyo Puyo / Dr. Robotnik's Mean Bean Machine for the Sega Genesis
 
-# Download
-![Latest Release](https://github.com/HexTeke/Puyo-Puyo/releases/download/v0.11/PuyoPuyo.jar)
+# ![Download Latest Release](https://github.com/HexTeke/Puyo-Puyo/releases/download/v0.11/PuyoPuyo.jar)
 
 # Controls
 - Arrow keys to navigate/move
